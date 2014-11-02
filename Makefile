@@ -1,4 +1,4 @@
-FLAGS=-O2 -std=c11 -march=native -ggdb -pipe -Wall -Wextra -Wshadow
+CFLAGS=-O0 -std=c11 -march=native -ggdb -pipe -Wall -Wextra -Wshadow
 
 sort: sort.o
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
