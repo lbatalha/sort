@@ -7,17 +7,18 @@ int main(int argc, char *argv[])
 {
 	char line[MAXCHAR];
 	char *lines = NULL;
-	FILE *fp;
+	char **array = NULL;
 
+	FILE *fp;
+	
+	int i = 1;
+	int linecount = 0;
+	
 
 
 /*	char hello[] = "hello";
 	char bye[] = "bye";
 */
-	int i = 1;
-	int linecount = 0;
-	char **array;
-
 	if(argc == 2)
 		fp = fopen(argv[1], "r");
 	else
@@ -27,10 +28,9 @@ int main(int argc, char *argv[])
 	{
 		
 		linecount = linecount + 1;
-		lines = realloc(lines, MAXCHAR * linecount);
-		strcpy(lines + MAXCHAR * (linecount - 1), line);
-		array = realloc(array, sizeof(char*) * linecount);
-		array[linecount-1] = line;		
+		array[linecount-1] = malloc(MAXCHAR);		
+		strcpy(array[linecount-1], line);
+
 	}
 
 	qsort(array, linecount, sizeof(char*), (__compar_fn_t)strcmp);
@@ -48,11 +48,11 @@ int main(int argc, char *argv[])
 */
 	for(i=0; i < linecount; i++)
 	{
-		strcpy(line, array[i]);
-		printf("%s", line);
+		printf("%d: %p %s", i, array[i], array[i]);
 	}
 
 	fclose(fp);
+	free(array);
 	free(lines);
 
 	return 0;
