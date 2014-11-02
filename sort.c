@@ -3,10 +3,15 @@
 #include <string.h>
 #define MAXCHAR 65
 
+int charcmp(const void *a, const void  *b)
+{
+	return strcmp( * (char * const *) a, * (char * const *) b);
+}
+
 int main(int argc, char *argv[])
 {
 	char line[MAXCHAR];
-	char *lines = NULL;
+
 	char **array = NULL;
 
 	FILE *fp;
@@ -26,14 +31,14 @@ int main(int argc, char *argv[])
 
 	while(fgets(line, MAXCHAR, fp) != NULL)
 	{
-		
 		linecount = linecount + 1;
+
+		array = realloc(array, sizeof(char*) * linecount);
 		array[linecount-1] = malloc(MAXCHAR);		
 		strcpy(array[linecount-1], line);
-
 	}
 
-	qsort(array, linecount, sizeof(char*), (__compar_fn_t)strcmp);
+	qsort(array, linecount, sizeof(char*), charcmp);
 /*
 	char **array;
 	array = malloc(sizeof(char*) * 2);
@@ -48,12 +53,12 @@ int main(int argc, char *argv[])
 */
 	for(i=0; i < linecount; i++)
 	{
-		printf("%d: %p %s", i, array[i], array[i]);
+		printf("%s", array[i]);
 	}
 
 	fclose(fp);
 	free(array);
-	free(lines);
+	
 
 	return 0;
 }
