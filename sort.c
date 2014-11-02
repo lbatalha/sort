@@ -7,10 +7,14 @@ int main(int argc, char *argv[])
 {
 	char line[MAXCHAR];
 	char *lines = NULL;
+	char *lines_origin;
+
 /*	char lines[2];
 	char hello[] = "hello";*/
+
 	int i = 1;
 	int linecount=0;
+
 
 	FILE *fp = fopen(argv[1], "r");
 
@@ -20,17 +24,15 @@ int main(int argc, char *argv[])
 
 		lines = realloc(lines, MAXCHAR);
 
-		strcpy(lines, line);
-
-		lines = lines + MAXCHAR;
+		strcpy(lines + MAXCHAR * linecount, line);
+	
 		
 	}
 
 
 	for(i=0; i < linecount; i++)
 	{
-		lines = lines + MAXCHAR*i;
-		strcpy(line, lines);
+		strcpy(line, lines + MAXCHAR*i;);
 		printf("%s\n", line);
 	}
 
