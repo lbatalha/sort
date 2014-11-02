@@ -20,12 +20,12 @@ int main(int argc, char *argv[])
 
 	while(fgets(line, MAXCHAR, fp) != NULL)
 	{
-		linecount = linecount + 1;
-
-		lines = realloc(lines, MAXCHAR);
+		
+		lines = realloc(lines, MAXCHAR * linecount);
 
 		strcpy(lines + MAXCHAR * linecount, line);
-	
+		
+		linecount = linecount + 1;
 		
 	}
 
