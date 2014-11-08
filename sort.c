@@ -22,7 +22,6 @@ int main(int argc, char *argv[])
 	int linecount = 0;
 	int MAXCHAR = 0;
 	int linelength = 0;
-	int lastlength = 0;
 	
 
 	if(argc < 2)
@@ -36,16 +35,16 @@ int main(int argc, char *argv[])
 		MAXCHAR = 0;
 		//printf("Start: %d\n", linelength);
 		line = NULL;
+		linelength = 0;
 		do{
 			MAXCHAR += 4;
 			line = realloc(line, MAXCHAR);
 			
-			fgetsreturn = fgets(line + lastlength, MAXCHAR, fp);
+			fgetsreturn = fgets(line + (linelength), MAXCHAR, fp);
 			
-			linelength = strlen(line);
-			lastlength = linelength-1;
+			linelength = strlen(line-1);
 
-		}while(line[lastlength] != '\n' && !feof(fp));
+		}while(line[linelength] != '\n' && !feof(fp));
 
 		linecount = linecount + 1;
 		array = realloc(array, sizeof(char*) * linecount);		
