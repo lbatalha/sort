@@ -34,19 +34,19 @@ int main(int argc, char *argv[])
 	
 	do{
 		MAXCHAR = 0;
-		printf("Start: %d\n", linelength);
-		while(line[lastlength] != '\n' && !feof(fp))
-		{
-			printf("Start: %d\n", linelength);
-			MAXCHAR += BUFSIZ;
+		/*printf("Start: %d\n", linelength);*/
+		line = NULL;
+		do{
+			MAXCHAR += 4;
 			line = realloc(line, MAXCHAR);
 			
 			fgetsreturn = fgets(line + lastlength, MAXCHAR, fp);
 			
 			linelength = strlen(line);
 			lastlength = linelength-1;
-		}
-		printf("End: %d\n", linelength);
+
+		}while(line[lastlength] != '\n' && !feof(fp));
+
 		linecount = linecount + 1;
 		array = realloc(array, sizeof(char*) * linecount);
 		array[linecount-1] = malloc(MAXCHAR);		
