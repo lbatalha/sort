@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 	
 	do{
 		MAXCHAR = 0;
-		/*printf("Start: %d\n", linelength);*/
+		//printf("Start: %d\n", linelength);
 		line = NULL;
 		do{
 			MAXCHAR += 4;
@@ -48,9 +48,8 @@ int main(int argc, char *argv[])
 		}while(line[lastlength] != '\n' && !feof(fp));
 
 		linecount = linecount + 1;
-		array = realloc(array, sizeof(char*) * linecount);
-		array[linecount-1] = malloc(MAXCHAR);		
-		strcpy(array[linecount-1], line);
+		array = realloc(array, sizeof(char*) * linecount);		
+		array[linecount-1] = line;
 
 	}while(fgetsreturn != NULL);
 
