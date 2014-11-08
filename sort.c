@@ -12,8 +12,8 @@ int charcmp(const void *a, const void  *b)
 
 int main(int argc, char *argv[])
 {
-	char *line;
-
+	char *line = NULL;
+	char *fgetsreturn = NULL;
 	char **array = NULL;
 
 	FILE *fp;
@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
 	int MAXCHAR = 0;
 	int linelength = 0;
 	int lastlength = 0;
+	
 
 	if(argc < 2)
 		fp = stdin;
@@ -30,25 +31,28 @@ int main(int argc, char *argv[])
 		fp = fopen(argv[1], "r");
 
 
-	while(fgetsreturn != NULL)
-	{
-		MAXCHAR = 0;
 	
-		while(line[linelength-1] != '\n' && !feof(fp))
+	do{
+		MAXCHAR = 0;
+		printf("Start: %d\n", linelength);
+		while(line[lastlength] != '\n' && !feof(fp))
 		{
+			printf("Start: %d\n", linelength);
 			MAXCHAR += BUFSIZ;
 			line = realloc(line, MAXCHAR);
-
-			fgets(line + (linelength-1), MAXCHAR, fp);
-
+			
+			fgetsreturn = fgets(line + lastlength, MAXCHAR, fp);
+			
 			linelength = strlen(line);
+			lastlength = linelength-1;
 		}
-
+		printf("End: %d\n", linelength);
 		linecount = linecount + 1;
 		array = realloc(array, sizeof(char*) * linecount);
 		array[linecount-1] = malloc(MAXCHAR);		
 		strcpy(array[linecount-1], line);
-	}
+
+	}while(fgetsreturn != NULL);
 
 	qsort(array, linecount, sizeof(char*), charcmp);
 
