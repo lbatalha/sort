@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#define MAXCHAR 65
+
+
 
 int charcmp(const void *a, const void  *b)
 {
@@ -11,7 +12,7 @@ int charcmp(const void *a, const void  *b)
 
 int main(int argc, char *argv[])
 {
-	char line[MAXCHAR];
+	char *line;
 
 	char **array = NULL;
 
@@ -19,22 +20,31 @@ int main(int argc, char *argv[])
 	
 	int i = 1;
 	int linecount = 0;
-	
+	int MAXCHAR = 0;
+	int linelength = 0;
+	int lastlength = 0;
 
-
-/*	char hello[] = "hello";
-	char bye[] = "bye";
-*/
 	if(argc < 2)
 		fp = stdin;
 	else
 		fp = fopen(argv[1], "r");
 
 
-	while(fgets(line, MAXCHAR, fp) != NULL)
+	while(fgetsreturn != NULL)
 	{
-		linecount = linecount + 1;
+		MAXCHAR = 0;
+	
+		while(line[linelength-1] != '\n' && !feof(fp))
+		{
+			MAXCHAR += BUFSIZ;
+			line = realloc(line, MAXCHAR);
 
+			fgets(line + (linelength-1), MAXCHAR, fp);
+
+			linelength = strlen(line);
+		}
+
+		linecount = linecount + 1;
 		array = realloc(array, sizeof(char*) * linecount);
 		array[linecount-1] = malloc(MAXCHAR);		
 		strcpy(array[linecount-1], line);
