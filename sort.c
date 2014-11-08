@@ -42,9 +42,9 @@ int main(int argc, char *argv[])
 			
 			fgetsreturn = fgets(line + (linelength), MAXCHAR, fp);
 			
-			linelength = strlen(line-1);
+			linelength = strlen(line);
 
-		}while(line[linelength] != '\n' && !feof(fp));
+		}while(line[linelength-1] != '\n' && !feof(fp));
 
 		linecount = linecount + 1;
 		array = realloc(array, sizeof(char*) * linecount);		
@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 
 	fclose(fp);
 	free(array);
-	
+	free(line);
 
 	return 0;
 }
