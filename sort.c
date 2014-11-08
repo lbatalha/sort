@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 			
 			fgetsreturn = fgets(line + (linelength), MAXCHAR, fp);
 			
-			linelength = strlen(line);
+			linelength = strlen(line + linelength) + linelength;
 
 		}while(line[linelength-1] != '\n' && !feof(fp));
 
